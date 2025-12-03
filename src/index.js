@@ -1,4 +1,4 @@
-// Cloudflare Worker: Trigger Jonathan Harris hook every 30 minutes
+
 
 export default {
   async scheduled(event, env, ctx) {
@@ -6,7 +6,7 @@ export default {
   },
 
   async fetch(request, env, ctx) {
-    return new Response("RSS Trigger Worker active", { status: 200 });
+    return new Response("Health Trigger Worker active", { status: 200 });
   },
 };
 
@@ -15,7 +15,7 @@ async function handleTrigger(env) {
 
   try {
     const res = await fetch(url, {
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ trigger: "auto", interval: "30min" })
     });
