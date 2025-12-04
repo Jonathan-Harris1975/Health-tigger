@@ -1,5 +1,3 @@
-
-
 export default {
   async scheduled(event, env, ctx) {
     await handleTrigger(env);
@@ -16,14 +14,16 @@ async function handleTrigger(env) {
   try {
     const res = await fetch(url, {
       method: "GET",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ trigger: "auto", interval: "30min" })
+      headers: { "Content-Type": "application/json" }
     });
 
     const text = await res.text();
 
+    console.log(`Trigger response: ${text}`);
+    
     return new Response(`Triggered: ${text}`, { status: 200 });
   } catch (err) {
+    console.error(`Trigger failed: ${err}`);
     return new Response(`Trigger failed: ${err}`, { status: 500 });
   }
 }
